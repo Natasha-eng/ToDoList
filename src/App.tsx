@@ -95,6 +95,19 @@ function App() {
         setTasks(({...tasks}))
     }
 
+    function addToDoList(title: string) {
+        let todoList: ToDoListType = {
+            id: v1(),
+            filter: "all",
+            title: title
+        }
+        setTodoLists([todoList, ...todoLists])
+        setTasks({
+            ...tasks,
+            [todoList.id]: []
+        })
+    }
+
     /*let tasksForToDoList = tasks
     if (filter === "active") {
         tasksForToDoList = tasks.filter(task => task.isDone === false)
@@ -105,7 +118,7 @@ function App() {
 */
     return (
         <div className="App">
-            <AddItemForm addItem={()=> {}} id={"bbb"}/>
+            <AddItemForm addItem={addToDoList}/>
             {todoLists.map(tl => {
                 let tasksForToDoList = tasks[tl.id]
                 if (tl.filter === "active") {
