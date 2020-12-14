@@ -39,8 +39,9 @@ test('correct todolist should be added', () => {
 
 
     expect(endState.length).toBe(3);
-    expect(endState[2].title).toBe(newToDoListTitle);
-    expect(endState[2].filter).toBe("all");
+    expect(endState[0].title).toBe(newToDoListTitle);
+    expect(endState[0].filter).toBe("all");
+    expect(endState[0].id).toBeDefined();
 
 })
 

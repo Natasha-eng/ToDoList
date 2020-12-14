@@ -1,6 +1,6 @@
-import {TaskStateType, TaskType} from "../App";
+import {TaskStateType, TaskType} from "../AppWithRedux";
 import {v1} from "uuid";
-import {AddToDoListActionType, RemoveToDoListActionType} from "./todolists-reducer";
+import {AddToDoListActionType, RemoveToDoListActionType, todoListID1, todoListID2} from "./todolists-reducer";
 
 export type RemoveTaskActionType = {
     type: 'REMOVE-TASK'
@@ -35,7 +35,22 @@ type ActionsType = RemoveTaskActionType |
     AddToDoListActionType |
     RemoveToDoListActionType;
 
-export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskStateType => {
+const initialState: TaskStateType = {
+    [todoListID1]: [
+        {id: v1(), title: "HTML&CSS", isDone: true},
+        {id: v1(), title: "JS", isDone: true},
+        {id: v1(), title: "ReactJS", isDone: false},
+        {id: v1(), title: "Redux", isDone: true},
+    ],
+    [todoListID2]: [
+        {id: v1(), title: "Dog", isDone: true},
+        {id: v1(), title: "Cat", isDone: true},
+        {id: v1(), title: "Horse", isDone: false},
+        {id: v1(), title: "Rabbit", isDone: true},
+    ]
+}
+
+export const tasksReducer = (state: TaskStateType = initialState, action: ActionsType): TaskStateType => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             const stateCopy = {...state}
@@ -56,10 +71,7 @@ export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskSta
         case 'CHANGE-TASK-STATUS': {
             /* const stateCopy = {...state};
              const tasks = stateCopy[action.todolistId];
-             const task = tasks.find(t => t.id === action.taskId);
-             if (task) {
-                 task.isDone = action.isDone;
-             }
+             stateCopy[action.todolistId] = tasks.map(t => t.id === action.taskId ? {...t, isDone: action.isDone : t}
              return stateCopy;*/
             return {...state, [action.todolistId]: state[action.todolistId].map(task => {
                     if (task.id !== action.taskId) return task
@@ -87,7 +99,7 @@ export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskSta
             return stateCopy;
         }
         default:
-            throw new Error("I dont understand this action type")
+            return state;
     }
 }
 
