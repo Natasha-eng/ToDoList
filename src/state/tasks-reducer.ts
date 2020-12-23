@@ -73,26 +73,33 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
              const tasks = stateCopy[action.todolistId];
              stateCopy[action.todolistId] = tasks.map(t => t.id === action.taskId ? {...t, isDone: action.isDone : t}
              return stateCopy;*/
-            return {...state, [action.todolistId]: state[action.todolistId].map(task => {
-                    if (task.id !== action.taskId) return task
-                    else return {...task, isDone: action.isDone}
-                })
+            return {
+                ...state,
+                [action.todolistId]: state[action.todolistId].map(task => task.id === action.taskId ? {
+                    ...task,
+                    isDone: action.isDone
+                } : task)
             }
         }
         case 'CHANGE-TASK-TITLE': {
-            const stateCopy = {...state}
-            const tasks = stateCopy[action.todolistId]
-            const task = tasks.find(t => t.id === action.taskId)
-            if (task) {
-                task.title = action.title;
+            /* const task = tasks.find(t => t.id === action.taskId)
+             if (task) {
+                 task.title = action.title;
+             }*/
+            return {
+                ...state, [action.todolistId]: state[action.todolistId].map(task => {
+                    if (task.id !== action.taskId) return task
+                    else return {...task, title: action.title}
+                })
             }
-            return stateCopy;
         }
         case 'ADD-TODOLIST': {
-            const stateCopy = {...state};
-            stateCopy[action.todolistId] = [];
-            return stateCopy;
+            return {
+                ...state,
+                [action.todolistId]: []
+            }
         }
+
         case 'REMOVE-TODOLIST': {
             const stateCopy = {...state};
             delete stateCopy[action.id]

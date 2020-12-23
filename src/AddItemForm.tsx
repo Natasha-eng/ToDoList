@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
-import {Button, IconButton, TextField} from "@material-ui/core";
+import {IconButton, TextField} from "@material-ui/core";
 import {ControlPoint} from "@material-ui/icons";
 
 
@@ -7,39 +7,42 @@ type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-function AddItemForm(props: AddItemFormPropsType) {
-    const [newTaskTitle, setNewTaskTitle] = useState("");
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
+    console.log('AddItemForm');
+    const [newTitle, setNewTitle] = useState("");
     const [error, setError] = useState<string | null>(null);
+
     const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewTaskTitle(e.currentTarget.value)
+        setNewTitle(e.currentTarget.value)
     }
 
-    const addTask = () => {
-        const trimmedTitle = newTaskTitle.trim();
+    const addItem = () => {
+        const trimmedTitle = newTitle.trim();
         if (trimmedTitle !== "") {
-            props.addItem(newTaskTitle);
+            props.addItem(newTitle);
         } else {
             setError("Title is required");
         }
-        setNewTaskTitle("");
+        setNewTitle("");
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
+        if (error !== null) {
+            setError(null);
+        }
         if (e.key === "Enter") {
-            addTask()
+            addItem()
         }
     }
 
     return (
         <div>
-            <TextField variant={"outlined"} label={"Type value"} value={newTaskTitle}
+            <TextField variant={"outlined"} label={"Type value"} value={newTitle}
                        onChange={onNewTitleChangeHandler}
                        onKeyPress={onKeyPressHandler} error={!!error}
                        helperText={error}/>
-            <IconButton onClick={addTask} color={"primary"}><ControlPoint/> </IconButton>
+            <IconButton onClick={addItem} color={"primary"}><ControlPoint/> </IconButton>
         </div>
     )
-}
+});
 
-export default AddItemForm;

@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import './App.css';
-import TodoList from "./TodoList";
 import {v1} from "uuid";
-import AddItemForm from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
-import {useDispatch} from "react-redux";
+import {AddItemForm} from "./AddItemForm";
+import {TodoList} from "./TodoList";
 
 export type TaskType = {
     id: string
@@ -30,8 +29,6 @@ function App() {
 
     const todoListID1 = v1()
     const todoListID2 = v1()
-
-
 
     const [todoLists, setTodoLists] = useState<Array<ToDoListType>>([
         {id: todoListID1, title: "What to learn", filter: "all"},
