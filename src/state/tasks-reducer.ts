@@ -36,18 +36,18 @@ type ActionsType = RemoveTaskActionType |
     RemoveToDoListActionType;
 
 const initialState: TaskStateType = {
-    [todoListID1]: [
-        {id: v1(), title: "HTML&CSS", isDone: true},
-        {id: v1(), title: "JS", isDone: true},
-        {id: v1(), title: "ReactJS", isDone: false},
-        {id: v1(), title: "Redux", isDone: true},
-    ],
-    [todoListID2]: [
-        {id: v1(), title: "Dog", isDone: true},
-        {id: v1(), title: "Cat", isDone: true},
-        {id: v1(), title: "Horse", isDone: false},
-        {id: v1(), title: "Rabbit", isDone: true},
-    ]
+    // [todoListID1]: [
+    //     {id: v1(), title: "HTML&CSS", isDone: true},
+    //     {id: v1(), title: "JS", isDone: true},
+    //     {id: v1(), title: "ReactJS", isDone: false},
+    //     {id: v1(), title: "Redux", isDone: true},
+    // ],
+    // [todoListID2]: [
+    //     {id: v1(), title: "Dog", isDone: true},
+    //     {id: v1(), title: "Cat", isDone: true},
+    //     {id: v1(), title: "Horse", isDone: false},
+    //     {id: v1(), title: "Rabbit", isDone: true},
+    // ]
 }
 
 export const tasksReducer = (state: TaskStateType = initialState, action: ActionsType): TaskStateType => {
@@ -87,10 +87,8 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
                  task.title = action.title;
              }*/
             return {
-                ...state, [action.todolistId]: state[action.todolistId].map(task => {
-                    if (task.id !== action.taskId) return task
-                    else return {...task, title: action.title}
-                })
+                ...state, [action.todolistId]: state[action.todolistId]
+                    .map(task => task.id === action.taskId ? {...task, title: action.title}: task)
             }
         }
         case 'ADD-TODOLIST': {

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState, KeyboardEvent} from "react";
+import React, {ChangeEvent, useState, KeyboardEvent, useCallback} from "react";
 import {IconButton, TextField} from "@material-ui/core";
 import {ControlPoint} from "@material-ui/icons";
 
@@ -20,10 +20,10 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
         const trimmedTitle = newTitle.trim();
         if (trimmedTitle !== "") {
             props.addItem(newTitle);
+            setNewTitle("");
         } else {
             setError("Title is required");
         }
-        setNewTitle("");
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
