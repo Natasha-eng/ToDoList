@@ -1,5 +1,4 @@
 import React, {useCallback} from "react";
-import {FilterValuesType, TaskType} from "./AppWithRedux";
 import {EditableSpan} from "./EditableSpan";
 import {Button, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
@@ -8,7 +7,8 @@ import {AppRootState} from "./state/store";
 import {addTaskAC} from "./state/tasks-reducer";
 import {AddItemForm} from "./AddItemForm";
 import {Task} from "./Task";
-
+import {TaskStatuses, TaskType} from "./api/todolists-api";
+import {FilterValuesType} from "./state/todolists-reducer";
 
 type PropsType = {
     id: string
@@ -19,7 +19,7 @@ type PropsType = {
     changeToDoListTitle: (todoListID: string, newTitle: string) => void
 }
 
-export const TodoList: React.FC<PropsType> = React.memo( (props: PropsType) => {
+export const TodoList: React.FC<PropsType> = React.memo((props: PropsType) => {
     console.log('TodoList called')
 
     const dispatch = useDispatch();
@@ -43,7 +43,7 @@ export const TodoList: React.FC<PropsType> = React.memo( (props: PropsType) => {
 
     const removeToDoList = useCallback(() => {
         props.removeToDoList(props.id);
-    },[props.removeToDoList, props.id])
+    }, [props.removeToDoList, props.id])
 
     const changeToDoListTitle = useCallback((newTitle: string) => {
         props.changeToDoListTitle(props.id, newTitle)
@@ -51,10 +51,10 @@ export const TodoList: React.FC<PropsType> = React.memo( (props: PropsType) => {
 
     let tasksForToDoList = tasks
     if (props.filter === "active") {
-        tasksForToDoList = tasks.filter(task => task.isDone === false)
+        tasksForToDoList = tasks.filter(task => task.status === TaskStatuses.New)
     }
     if (props.filter === "completed") {
-        tasksForToDoList = tasks.filter(task => task.isDone === true)
+        tasksForToDoList = tasks.filter(task => task.status === TaskStatuses.Completed)
     }
 
     return (
@@ -68,8 +68,8 @@ export const TodoList: React.FC<PropsType> = React.memo( (props: PropsType) => {
             <div>
                 {
                     tasksForToDoList.map(task => <Task
-                    task={task} toDoListId={props.id}
-                    key = {task.id}
+                        task={task} toDoListId={props.id}
+                        key={task.id}
                     />)
                 }
             </div>

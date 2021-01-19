@@ -3,7 +3,7 @@ import {IconButton, TextField} from "@material-ui/core";
 import {ControlPoint} from "@material-ui/icons";
 
 
-type AddItemFormPropsType = {
+export type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
@@ -41,7 +41,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
                        onChange={onNewTitleChangeHandler}
                        onKeyPress={onKeyPressHandler} error={!!error}
                        helperText={error}/>
-            <IconButton onClick={addItem} color={"primary"}><ControlPoint/> </IconButton>
+            <IconButton onClick={addItem} color={"primary"}><ControlPoint/></IconButton>
         </div>
     )
 });
