@@ -1,14 +1,14 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import {EditableSpan} from "./EditableSpan";
 import {Button, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
-import {addTaskAC} from "./state/tasks-reducer";
+import {addTaskAC, addTaskTC, fetchTasksThunkCreator} from "./state/tasks-reducer";
 import {AddItemForm} from "./AddItemForm";
 import {Task} from "./Task";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
-import {FilterValuesType} from "./state/todolists-reducer";
+import {fetchTodolistsThunkCreator, FilterValuesType} from "./state/todolists-reducer";
 
 type PropsType = {
     id: string
@@ -22,11 +22,15 @@ type PropsType = {
 export const TodoList: React.FC<PropsType> = React.memo((props: PropsType) => {
     console.log('TodoList called')
 
+    useEffect(() => {
+        dispatch(fetchTasksThunkCreator(props.id))
+    }, []);
+
     const dispatch = useDispatch();
     const tasks = useSelector<AppRootState, Array<TaskType>>(state => state.tasks[props.id]);
 
     const addTask = useCallback((title: string) => {
-        dispatch(addTaskAC(title, props.id))
+        dispatch(addTaskTC(title, props.id))
     }, [dispatch, props.id])
 
     const onAllClickHandler = useCallback(() => {

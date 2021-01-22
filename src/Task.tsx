@@ -1,10 +1,10 @@
 import React, {ChangeEvent} from "react";
 import {useDispatch} from "react-redux";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, removeTaskThunkCreator} from "./state/tasks-reducer";
 import {Checkbox, IconButton} from "@material-ui/core";
 import {EditableSpan} from "./EditableSpan";
 import {Delete} from "@material-ui/icons";
-import {TaskStatuses, TaskType} from "./api/todolists-api";
+import {TaskStatuses, TaskType, todolistsAPI} from "./api/todolists-api";
 
 export type TaskPropsType = {
     //taskId
@@ -16,7 +16,11 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, toDoListId}) => 
     console.log('Task called')
 
     const dispatch = useDispatch();
-    const onRemoveHandler = () => dispatch(removeTaskAC(task.id, toDoListId))
+
+    const onRemoveHandler = () => {
+        const thunk = removeTaskThunkCreator(task.id, toDoListId);
+        dispatch(thunk);
+    }
 
     const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(changeTaskStatusAC(task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New, toDoListId));
