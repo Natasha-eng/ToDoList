@@ -3,7 +3,7 @@ import './App.css';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
 import {
-    addToDoListAC,
+    addToDoListAC, addTodolistTC,
     changeToDoListFilterAC,
     changeToDoListTitleAC, fetchTodolistsThunkCreator, FilterValuesType,
     removeToDoListAC, removeTodolistTC, setTodolistsAC, TodolistDomainType,
@@ -47,7 +47,7 @@ function AppWithRedux() {
     }, [dispatch])
 
     const addToDoList = useCallback((title: string) => {
-        const action = addToDoListAC(title);
+        const action = addTodolistTC(title);
         dispatch(action);
     }, [dispatch])
 

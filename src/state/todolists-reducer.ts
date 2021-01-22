@@ -10,8 +10,7 @@ export type RemoveToDoListActionType = {
 
 export type AddToDoListActionType = {
     type: 'ADD-TODOLIST'
-    title: string
-    todolistId: string
+    todolist: TodolistType
 }
 
 export type ChangeToDoListTitleActionType = {
@@ -56,14 +55,8 @@ export const todoListsReducer = (state: Array<TodolistDomainType> = initialState
         }
 
         case 'ADD-TODOLIST': {
-            return [{
-                id: action.todolistId,
-                title: action.title,
-                filter: 'all',
-                addedDate: '',
-                order: 0
-            }, ...state
-            ]
+            const newTodolist: TodolistDomainType = {...action.todolist, filter: 'all'}
+            return [newTodolist, ...state]
         }
 
         case 'CHANGE-TODOLIST-TITLE': {
@@ -103,8 +96,8 @@ export const removeToDoListAC = (todolistId: string): RemoveToDoListActionType =
     return {type: 'REMOVE-TODOLIST', id: todolistId}
 }
 
-export const addToDoListAC = (todolistTitle: string): AddToDoListActionType => {
-    return {type: 'ADD-TODOLIST', title: todolistTitle, todolistId: v1()}
+export const addToDoListAC = (todolist: TodolistType): AddToDoListActionType => {
+    return {type: 'ADD-TODOLIST', todolist}
 }
 
 export const changeToDoListTitleAC = (todolistId: string, todolistTitle: string): ChangeToDoListTitleActionType => {
@@ -146,6 +139,15 @@ export const removeTodolistTC = (todolistId: string) => {
         todolistsAPI.deleteTodolist(todolistId)
             .then(() => {
                 dispatch(removeToDoListAC(todolistId))
+            })
+    }
+}
+
+export const addTodolistTC = (title: string) => {
+    return (dispatch: Dispatch) => {
+        todolistsAPI.createTodolist(title)
+            .then((res) => {
+                dispatch(addToDoListAC(res.data.data.item))
             })
     }
 }
