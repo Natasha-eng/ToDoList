@@ -5,7 +5,7 @@ import {Menu} from "@material-ui/icons";
 import {
     addToDoListAC, addTodolistTC,
     changeToDoListFilterAC,
-    changeToDoListTitleAC, fetchTodolistsThunkCreator, FilterValuesType,
+    changeToDoListTitleAC, changeTodolistTitleTC, fetchTodolistsThunkCreator, FilterValuesType,
     removeToDoListAC, removeTodolistTC, setTodolistsAC, TodolistDomainType,
 } from "./state/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -42,8 +42,8 @@ function AppWithRedux() {
     }, [dispatch])
 
     const changeToDoListTitle = useCallback((todoListID: string, newTitle: string) => {
-        const action = changeToDoListTitleAC(todoListID, newTitle);
-        dispatch(action);
+        const thunk = changeTodolistTitleTC(todoListID, newTitle);
+        dispatch(thunk);
     }, [dispatch])
 
     const addToDoList = useCallback((title: string) => {

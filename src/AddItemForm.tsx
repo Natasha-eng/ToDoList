@@ -17,6 +17,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
     }
 
     const addItem = () => {
+        debugger
         const trimmedTitle = newTitle.trim();
         if (trimmedTitle !== "") {
             props.addItem(newTitle);
