@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import './App.css';
+import '../app/App.css';
 import {v1} from "uuid";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
-import {AddItemForm} from "./AddItemForm";
-import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "./api/todolists-api";
-import {FilterValuesType, TodolistDomainType} from "./state/todolists-reducer";
+import {AddItemForm} from "../components/AddItemForm/AddItemForm";
+import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "../api/todolists-api";
+import {FilterValuesType, TodolistDomainType} from "../features/TodolistsList/todolists-reducer";
 
 
 
@@ -20,8 +20,8 @@ function App() {
     const todoListID2 = v1()
 
     const [todoLists, setTodoLists] = useState<Array<TodolistDomainType>>([
-        {id: todoListID1, title: "What to learn", filter: "all", addedDate: '', order: 0},
-        {id: todoListID2, title: "What to buy", filter: "all", addedDate: '', order: 0},
+        {id: todoListID1, title: "What to learn", filter: "all", addedDate: '', order: 0, entityStatus: "idle"},
+        {id: todoListID2, title: "What to buy", filter: "all", addedDate: '', order: 0, entityStatus: "idle"},
     ])
 
     const [tasks, setTasks] = useState<TaskStateType>({
@@ -125,7 +125,8 @@ function App() {
             filter: "all",
             title: title,
             addedDate: '',
-            order: 0
+            order: 0,
+            entityStatus: "idle"
         }
         setTodoLists([todoList, ...todoLists])
         setTasks({
@@ -185,4 +186,4 @@ function App() {
     );
 }
 
-export default App;
+

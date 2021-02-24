@@ -6,7 +6,7 @@ import {action} from "@storybook/addon-actions";
 
 
 export default {
-    title: 'Todolists/AddItemForm',
+    title: 'TodolistsList/AddItemForm',
     component: AddItemForm,
     argTypes: {
         backgroundColor: {control: 'color'},
@@ -23,4 +23,15 @@ export const AddItemFormExample = Template.bind({});
 AddItemFormExample.args = {
     addItem: action('AddItemForm clicked')
 }
+
+const Template2: Story<AddItemFormPropsType> = (args) => <AddItemForm  {...args}/>;
+
+export const AddItemFormDisabledExample = Template.bind({});
+
+AddItemFormDisabledExample.args = {
+    addItem: action('AddItemForm clicked'),
+    disabled : true
+}
+
+
 

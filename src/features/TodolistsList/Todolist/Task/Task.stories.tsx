@@ -2,11 +2,11 @@ import React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import {Meta, Story} from '@storybook/react/types-6-0';
 import {Task, TaskPropsType} from "./Task";
-import {ReduxStoreProviderDecorator} from "./ReduxStoreProviderDecorator";
-import {TaskPriorities, TaskStatuses} from "./api/todolists-api";
+import {ReduxStoreProviderDecorator} from "../../../../ReduxStoreProviderDecorator";
+import {TaskPriorities, TaskStatuses} from "../../../../api/todolists-api";
 
 export default {
-    title: 'Todolists/Task',
+    title: 'TodolistsList/Task',
     component: Task,
     decorators: [ReduxStoreProviderDecorator],
     argTypes: {},

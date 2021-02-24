@@ -1,16 +1,13 @@
 import React, {ChangeEvent} from "react";
 import {useDispatch} from "react-redux";
 import {
-    changeTaskStatusAC,
-    changeTaskStatusTC,
-    changeTaskTitleAC,
-    removeTaskAC,
+    changeTaskTC,
     removeTaskThunkCreator
-} from "./state/tasks-reducer";
+} from "../../tasks-reducer";
 import {Checkbox, IconButton} from "@material-ui/core";
-import {EditableSpan} from "./EditableSpan";
+import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import {Delete} from "@material-ui/icons";
-import {TaskStatuses, TaskType, todolistsAPI} from "./api/todolists-api";
+import {TaskStatuses, TaskType, todolistsAPI} from "../../../../api/todolists-api";
 
 export type TaskPropsType = {
     //taskId
@@ -29,11 +26,11 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, toDoListId}) => 
     }
 
     const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeTaskStatusTC(task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New, toDoListId));
+        dispatch(changeTaskTC(task.id, {status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}, toDoListId));
     }
 
     const onChangeTitleHandler = (newValue: string) => {
-        dispatch(changeTaskTitleAC(task.id, newValue, toDoListId));
+        dispatch(changeTaskTC(task.id, {title: newValue}, toDoListId));
     }
 
     return (

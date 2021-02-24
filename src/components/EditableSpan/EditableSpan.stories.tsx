@@ -6,7 +6,7 @@ import {EditableSpan, EditableSpanPropsType} from "./EditableSpan";
 
 
 export default {
-    title: 'Todolists/EditableSpan',
+    title: 'TodolistsList/EditableSpan',
     component: EditableSpan,
     argTypes: {
         onChange: {
