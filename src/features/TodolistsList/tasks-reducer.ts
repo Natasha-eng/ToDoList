@@ -98,10 +98,12 @@ export const fetchTasksThunkCreator = (todolistId: string) => (dispatch: Dispatc
 
 export const removeTaskThunkCreator = (taskId: string, todolistId: string) => (dispatch: ThunkDispatch) => {
     dispatch(setAppStatusAC('loading'))
+    dispatch(changeTaskEntityStatusAC("loading", taskId, todolistId))
     todolistsAPI.deleteTask(todolistId, taskId)
         .then(res => {
             dispatch(removeTaskAC(taskId, todolistId))
             dispatch(setAppStatusAC('succeeded'))
+            dispatch(changeTaskEntityStatusAC("succeeded", taskId, todolistId))
         })
 }
 
