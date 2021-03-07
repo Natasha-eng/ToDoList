@@ -5,7 +5,7 @@ import {
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/todolists-api";
 import {Dispatch} from "redux";
 import {AppRootState} from "../../app/store";
-import {setAppErrorAC, setAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "../../app/app-reducer";
+import {setAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../stories/utils/error-utils";
 
 const initialState: TaskStateType = {}
@@ -79,10 +79,12 @@ export const fetchTasksThunkCreator = (todolistId: string) => (dispatch: Dispatc
         })
 }
 
-export const removeTaskThunkCreator = (taskId: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
+export const removeTaskThunkCreator = (taskId: string, todolistId: string) => (dispatch: ThunkDispatch) => {
+    dispatch(setAppStatusAC('loading'))
     todolistsAPI.deleteTask(todolistId, taskId)
         .then(res => {
             dispatch(removeTaskAC(taskId, todolistId))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 
@@ -119,6 +121,7 @@ export const changeTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
         deadline: task.deadline,
         ...domainModel
     }
+    dispatch(setAppStatusAC("loading"))
     todolistsAPI.updateTask(todolistId, taskId, apiModel)
         .then(res => {
                 if (res.data.resultCode === 0) {
@@ -126,6 +129,7 @@ export const changeTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
                 } else {
                     handleServerAppError(res.data, dispatch)
                 }
+                dispatch(setAppStatusAC("succeeded"))
             }
         )
         .catch((error) => {

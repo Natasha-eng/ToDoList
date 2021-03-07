@@ -62,7 +62,6 @@ export const UpdateTodolistTitle = () => {
         const todolistId = 'a55248e6-2f9a-4d4c-a13a-d50e76da06db';
         todolistsAPI.updateTodolist(todolistId, 'Natasha')
             .then((res) => {
-                debugger
                 setState(res.data)
             })
 
