@@ -141,10 +141,12 @@ export const changeTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
         ...domainModel
     }
     dispatch(setAppStatusAC("loading"))
+    dispatch(changeTaskEntityStatusAC("loading", taskId, todolistId))
     todolistsAPI.updateTask(todolistId, taskId, apiModel)
         .then(res => {
                 if (res.data.resultCode === 0) {
                     dispatch(updateTaskAC(taskId, domainModel, todolistId))
+                    dispatch(changeTaskEntityStatusAC("succeeded", taskId, todolistId))
                 } else {
                     handleServerAppError(res.data, dispatch)
                 }
