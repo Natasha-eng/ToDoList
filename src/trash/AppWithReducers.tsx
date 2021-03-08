@@ -48,25 +48,25 @@ function AppWithReducers() {
                 id: v1(), title: "HTML&CSS", status: TaskStatuses.Completed,
                 todoListId: todoListID1, startDate: '', deadline: '',
                 addedDate: '', order: 0, priority: TaskPriorities.High,
-                description: ''
+                description: '',entityStatus:"idle"
             },
             {
                 id: v1(), title: "JS", status: TaskStatuses.Completed,
                 todoListId: todoListID1, startDate: '', deadline: '',
                 addedDate: '', order: 0, priority: TaskPriorities.High,
-                description: ''
+                description: '',entityStatus:"idle"
             },
             {
                 id: v1(), title: "ReactJS", status: TaskStatuses.Completed,
                 todoListId: todoListID1, startDate: '', deadline: '',
                 addedDate: '', order: 0, priority: TaskPriorities.High,
-                description: ''
+                description: '',entityStatus:"idle"
             },
             {
                 id: v1(), title: "Redux", status: TaskStatuses.Completed,
                 todoListId: todoListID1, startDate: '', deadline: '',
                 addedDate: '', order: 0, priority: TaskPriorities.High,
-                description: ''
+                description: '',entityStatus:"idle"
             }
         ],
         [todoListID2]: [
@@ -74,13 +74,13 @@ function AppWithReducers() {
                 id: v1(), title: "Dog", status: TaskStatuses.Completed,
                 todoListId: todoListID2, startDate: '', deadline: '',
                 addedDate: '', order: 0, priority: TaskPriorities.High,
-                description: ''
+                description: '',entityStatus:"idle"
             },
             {
                 id: v1(), title: "Cat", status: TaskStatuses.Completed,
                 todoListId: todoListID2, startDate: '', deadline: '',
                 addedDate: '', order: 0, priority: TaskPriorities.High,
-                description: ''
+                description: '',entityStatus:"idle"
             }
         ]
     })

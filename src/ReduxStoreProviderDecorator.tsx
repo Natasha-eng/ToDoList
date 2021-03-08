@@ -32,13 +32,13 @@ const initialGlobalState: AppRootState = {
                 id: v1(), title: "HTML&CSS", status: TaskStatuses.Completed,
                 todoListId: 'todoListID1', startDate: '', deadline: '',
                 addedDate: '', order: 0, priority: TaskPriorities.High,
-                description: ''
+                description: '',entityStatus:"idle"
             },
             {
                 id: v1(), title: "JS", status: TaskStatuses.Completed,
                 todoListId: 'todoListID1', startDate: '', deadline: '',
                 addedDate: '', order: 0, priority: TaskPriorities.High,
-                description: ''
+                description: '',entityStatus:"idle"
             }
         ],
         ["todolistId2"]: [
@@ -46,13 +46,13 @@ const initialGlobalState: AppRootState = {
                 id: v1(), title: "Milk", status: TaskStatuses.Completed,
                 todoListId: 'todoListID2', startDate: '', deadline: '',
                 addedDate: '', order: 0, priority: TaskPriorities.High,
-                description: ''
+                description: '',entityStatus:"idle"
             },
             {
                 id: v1(), title: "React Book", status: TaskStatuses.Completed,
                 todoListId: 'todoListID2', startDate: '', deadline: '',
                 addedDate: '', order: 0, priority: TaskPriorities.High,
-                description: ''
+                description: '',entityStatus:"idle"
             }
         ]
     },
