@@ -20,7 +20,7 @@ export const Login = () => {
             }
             if (!values.password) {
                 return {
-                    email: "Password is required"
+                    password: "Password is required"
                 }
             }
         },
