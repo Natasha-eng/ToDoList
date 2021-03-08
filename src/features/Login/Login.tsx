@@ -1,10 +1,26 @@
 import React from 'react'
-import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
+import {
+    Checkbox,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
+    FormLabel,
+    TextField,
+    Button,
+    Grid,
+    debounce
+} from '@material-ui/core'
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "./auth-reducer";
 import {AppRootState} from "../../app/store";
 import {Redirect} from 'react-router-dom';
+
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
+}
 
 export const Login = () => {
 
@@ -13,16 +29,18 @@ export const Login = () => {
 
     const formik = useFormik({
         validate: (values) => {
+            const errors: FormikErrorType = {};
             if (!values.email) {
-                return {
-                    email: "Email is required"
-                }
+                errors.email = 'Email is required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address';
             }
             if (!values.password) {
-                return {
-                    password: "Password is required"
-                }
+                errors.password = 'Password is required'
+            } else if (values.password.length < 3) {
+                errors.password = 'Password should be more than 3 symbols'
             }
+            return errors;
         },
         initialValues: {
             email: '',
