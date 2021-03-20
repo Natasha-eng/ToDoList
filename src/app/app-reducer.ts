@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authApi} from "../api/todolists-api";
 import {setIsLoggedIn} from "../features/Login/auth-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../stories/utils/error-utils";
 
 const initialState: InitialStateType = {
     status: 'idle',
@@ -31,16 +32,18 @@ export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-ST
 export const setAppInitializedAC = (value: boolean) => ({type: 'APP/SET-IS-INITIALIZED', value} as const)
 
 //thunks
-
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authApi.me()
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setIsLoggedIn(true))
             } else {
-
+                handleServerAppError(res.data, dispatch);
             }
             dispatch(setAppInitializedAC(true))
+        })
+        .catch(error => {
+            handleServerNetworkError(error, dispatch)
         })
 }
 

@@ -2,7 +2,6 @@ import {Dispatch} from "redux";
 import {setAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "../../app/app-reducer";
 import {authApi, LoginParamType} from "../../api/todolists-api";
 import {handleServerAppError, handleServerNetworkError} from "../../stories/utils/error-utils";
-import {addTaskAC} from "../TodolistsList/tasks-reducer";
 
 const initialState: InitialStateType = {
     isLoggedIn: false
